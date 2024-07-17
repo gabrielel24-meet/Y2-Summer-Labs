@@ -7,7 +7,11 @@
 	
 	<span>Your fortune is:</span>
 
-	<p> {{fortune_list[Num]}} </p>
-
+	
+	{% if Num_birth < 10%}
+	<p>{{fortune_list[(Num_birth)]}} </p>
+	{% else %}
+	<p>{{fortune_list[Num]}}</p>
+	{%endif%}
 
 </body>
