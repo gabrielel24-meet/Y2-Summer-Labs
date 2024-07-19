@@ -1,0 +1,40 @@
+<head>
+	
+
+</head>
+<body>
+	
+	<h1>Fortune Teller</h1>
+
+	<p>Welcome to your Fortune Teller</p>
+
+
+	<form action="/" method="POST">
+
+		<input type="text" name="Name" placeholder="Name" required>
+
+		<br>
+		<br>
+		
+		<input type="text" name="Birth" placeholder="Birth Month" required>
+
+		<br>
+
+		<button style="margin-top: 10px;" type="submit">Find your Fortune!</button>
+
+
+		{%if Start == True%}
+			<p>Hello {{session["Name"]}} </p>
+			{%if Num_birth < 10%}
+			<p>Your fortune is: </p>
+			<span>{{fortune_list[(Num_birth)]}} </span>
+			{% else %}
+			<p>Your fortune is: </p>
+			<span>{{fortune_list[Num]}}</span>
+			{%endif%}
+		{%endif%}
+
+
+	</form>
+
+</body>
