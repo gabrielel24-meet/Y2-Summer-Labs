@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Home</title>
+</head>
+<body>
+
+	<h1>Home</h1>
+
+	<p>Hello user: {{session["user"]["email"]}}</p>
+
+	<br>
+
+	<form action="/home" method="POST">
+		<input type="text" placeholder="Quote" name="quote">
+		<button type="submit">Submit</button>
+	</form>
+	
+
+
+	<br>
+	<br>
+
+	<button> <a href="/signout">Sign Out</a></button>
+
+</body>
+</html>
