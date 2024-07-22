@@ -37,7 +37,7 @@ def signup():
       return redirect(url_for('home'))
     except:
       error = "Authentication failed"
-      return render_template("signin.html")
+      return render_template("error.html")
 
 
 
@@ -55,13 +55,15 @@ def signin():
       return redirect(url_for('home'))
     except:
       error = "Authentication failed"
-      return render_template("home.html")
+      return render_template("error.html")
 
 
 @app.route('/home',methods=['GET', 'POST'])
 def home():
-  if request.method == 'GET':
+  if request.method == 'GET' and session['user'] != None:
     return render_template("home.html")
+  elif request.method == 'GET' and session['user'] == None:
+    return render_template("error.html")
   else:
     quote = request.form["quote"]
     session["quotes"].append(quote)
