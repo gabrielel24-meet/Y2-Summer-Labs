@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from flask import session as session
+from flask import session
 import pyrebase
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
@@ -50,6 +50,7 @@ def signin():
     try:
       email = request.form['email']
       password = request.form['password']
+      session['quotes']=[]
       session['user'] = auth.sign_in_with_email_and_password(email, password)
       return redirect(url_for('home'))
     except:
@@ -64,7 +65,7 @@ def home():
   else:
     quote = request.form["quote"]
     session["quotes"].append(quote)
-    session.current_user = True
+    session.modified = True
     return redirect(url_for("thanks"))
 
 

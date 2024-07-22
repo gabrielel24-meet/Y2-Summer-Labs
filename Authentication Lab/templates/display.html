@@ -6,6 +6,13 @@
 	<title></title>
 </head>
 <body>
-	{{quotes}}
+
+	{% for quote in session['quotes']%}
+
+		<h1> {{quote}} </h1>
+	
+	{%endfor%}
+
+
 </body>
 </html>
