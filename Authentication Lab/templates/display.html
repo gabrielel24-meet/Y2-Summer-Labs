@@ -10,10 +10,8 @@
 	<h1>Quotes</h1>
 
 	<ul>
-	{% for quote in session['quotes']%}
-
-		<li> {{quote}} </li>
-	
+	{% for quote in quotes%}
+		<p>{{quotes[quote]['quote_name']}}: <span>{{quotes[quote]['quote']}}</span></p>
 	{%endfor%}
 	</ul>
 

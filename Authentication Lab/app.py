@@ -13,11 +13,12 @@ firebaseConfig = {
   "storageBucket": "auth-lab-gabi.appspot.com",
   "messagingSenderId": "433593331448",
   "appId": "1:433593331448:web:44b3f84f6dafef322b150d",
-  "databaseURL":""
+  "databaseURL":"https://auth-lab-gabi-default-rtdb.europe-west1.firebasedatabase.app/"
 }
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
+db =firebase.database()
 
 
 # CODE
@@ -30,10 +31,17 @@ def signup():
     try:
       email = request.form['email']
       password = request.form['password']
+      name = request.form['name']
+      username = request.form['username']
       session['user'] = auth.create_user_with_email_and_password(email, password)
       session['quotes']=[]
       session['email'] = email
       session['password'] = password
+      session['name'] = name
+      session['username'] = username
+      user = {'email':email, 'name':name, 'username': username}
+      uid = session['user']['localId']
+      db.child('users').child(uid).set(user)
       return redirect(url_for('home'))
     except:
       error = "Authentication failed"
@@ -66,8 +74,10 @@ def home():
     return render_template("error.html")
   else:
     quote = request.form["quote"]
-    session["quotes"].append(quote)
-    session.modified = True
+    quote_name = request.form['quote_name']
+    uid = session['user']['localId']
+    quote_dic = {'quote':quote, 'quote_name':quote_name, 'uid':uid}
+    db.child('quote').push(quote_dic)
     return redirect(url_for("thanks"))
 
 
@@ -87,7 +97,7 @@ def thanks():
 @app.route('/display',methods=['GET', 'POST'])
 def display():
   if request.method == 'GET':
-    quotes = session["quotes"]
+    quotes = db.child('quote').get().val()
     return render_template("display.html" , quotes = quotes)
 
 if __name__ == '__main__':
