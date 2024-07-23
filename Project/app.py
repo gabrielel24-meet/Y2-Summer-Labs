@@ -46,11 +46,12 @@ def signup():
       session['password'] = password
       session['firstname'] = firstname
       session['lastname'] = lastname
-      Watchlist = []
+      Watchlist = [""]
 
       uid = session['user']['localId']
       UserInfo = {'firstname':firstname, 'lastname':lastname, "Watchlist":Watchlist}
-      db.child('users').push(UserInfo)
+      db.child('users').child(uid).set(UserInfo)
+      print(db.child('users').child(uid).get().val())
       return render_template("Library.html")
     except:
       return render_template("error.html")
@@ -81,8 +82,10 @@ def ratatouille():
     return render_template("Movies/ratatouille.html")
   else:
     uid = session['user']['localId']
-    db.child('users').child(uid).child("Watchlist").set("ratatouille")
-    return render_template("Home.html")
+    New_Watchlist = db.child('users').child(uid).child("Watchlist").get().val()
+    New_Watchlist.append("ratatouille")
+    db.child('users').child(uid).update({"Watchlist":New_Watchlist})
+    return render_template("Home.html", New_Watchlist = New_Watchlist)
 
 
 @app.route('/signout',methods=['GET', 'POST'])
