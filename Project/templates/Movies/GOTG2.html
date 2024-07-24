@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/static/style.css">
-	<title>ratatouille</title>
+	<title>Guardians of the galaxy 2</title>
 </head>
 <body style="text-align: center; background-color: black;">
 
@@ -20,21 +20,19 @@
   	  {%endif%}
 	</div>
 
+	<h1 style="color: white;">Guardians of the galaxy 2</h1>
 
-	<h1 style="color: white;">Ratatouille</h1>
-
-	<iframe width="560" height="315" src="https://www.youtube.com/embed/O_A8HdCDaWM?si=-6nQXdje4FVnphn0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	<iframe width="1280" height="720" src="https://www.youtube.com/embed/wUn05hdkhjM" title="Guardians of the Galaxy Vol. 2 - Trailer 3 (Official)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 	{%if Excist == False%}
-	<form method="POST" action="/movie/ratatouille">
+	<form method="POST" action="/movie/GOTG2">
 		<button type="submit">Add to Watchlist</button>
 	</form>
 	{%else%}
-	<form method="POST" action="/movie/ratatouille">
+	<form method="POST" action="/movie/GOTG2">
 		<button type="submit">Remove from Watchlist</button>
 	</form>
 	{%endif%}
-
 
 </body>
 </html>

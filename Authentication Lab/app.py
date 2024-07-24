@@ -100,5 +100,8 @@ def display():
     quotes = db.child('quote').get().val()
     return render_template("display.html" , quotes = quotes)
 
+
+
+
 if __name__ == '__main__':
     app.run(debug = True)

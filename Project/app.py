@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask import session
 import pyrebase
+import requests
+import json
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config["SECRET_KEY"] = "big-pink-elephant"
@@ -23,6 +25,30 @@ db =firebase.database()
 
 
 
+@app.route('/movie/<movie>',methods=['GET', 'POST'])
+def movie(movie):
+  uid = session['user']['localId']
+  Watchlist = db.child('users').child(uid).child("Watchlist").get().val()
+  Excist = False
+  for i in Watchlist:
+    if i == movie:
+      Excist = True
+  if request.method == 'GET':
+    link = 'Movies/' + movie +".html"
+    return render_template(link, Excist = Excist)
+  else:
+    if Excist == False:
+      uid = session['user']['localId']
+      New_Watchlist = db.child('users').child(uid).child("Watchlist").get().val()
+      New_Watchlist.append(movie)
+      db.child('users').child(uid).update({"Watchlist":New_Watchlist})
+    else:
+      uid = session['user']['localId']
+      New_Watchlist = db.child('users').child(uid).child("Watchlist").get().val()
+      New_Watchlist.remove(movie)
+      db.child('users').child(uid).update({"Watchlist":New_Watchlist})
+    return render_template("Home.html")
+
 # CODE
 
 @app.route('/',methods=['GET', 'POST'])
@@ -31,11 +57,11 @@ def home():
     return render_template("Home.html")
 
 
-@app.route('/signup',methods=['GET', 'POST'])
+@app.route('/static/signup',methods=['GET', 'POST'])
 def signup():
-  if request.method == 'GET':
+  if request.method == 'GET' and session["user"] == None:
     return render_template("Signup.html")
-  else:
+  elif request.method == 'POST':
     try:
       email = request.form['email']
       password = request.form['password']
@@ -51,16 +77,17 @@ def signup():
       uid = session['user']['localId']
       UserInfo = {'firstname':firstname, 'lastname':lastname, "Watchlist":Watchlist}
       db.child('users').child(uid).set(UserInfo)
-      print(db.child('users').child(uid).get().val())
       return render_template("Library.html")
     except:
       return render_template("error.html")
-
-@app.route('/login',methods=['GET', 'POST'])
-def login():
-  if request.method == 'GET':
-    return render_template("Login.html")
   else:
+    return render_template("Home.html")
+
+@app.route('/static/login',methods=['GET', 'POST'])
+def login():
+  if request.method == 'GET' and session["user"] == None:
+    return render_template("Login.html")
+  elif request.method == 'POST':
     try:
       email = request.form['email']
       password = request.form['password']
@@ -68,32 +95,41 @@ def login():
       return render_template("Library.html")
     except:
       return render_template("error.html")
-
-
-@app.route('/library',methods=['GET', 'POST'])
-def library():
-  if request.method == 'GET':
-    return render_template("Library.html")
-
-
-@app.route('/ratatouille',methods=['GET', 'POST'])
-def ratatouille():
-  if request.method == 'GET':
-    return render_template("Movies/ratatouille.html")
   else:
+    return render_template ("Home.html")
+
+
+@app.route('/static/library',methods=['GET', 'POST'])
+def library():
+  if request.method == 'GET' and session["user"] != None:
+    return render_template("Library.html")
+  else:
+    return render_template("Login.html")
+
+@app.route('/static/watchlist',methods=['GET', 'POST'])
+def watchlist():
+  if request.method == 'GET' and session["user"] != None:
     uid = session['user']['localId']
-    New_Watchlist = db.child('users').child(uid).child("Watchlist").get().val()
-    New_Watchlist.append("ratatouille")
-    db.child('users').child(uid).update({"Watchlist":New_Watchlist})
-    return render_template("Home.html", New_Watchlist = New_Watchlist)
+    Watchlist = db.child('users').child(uid).child("Watchlist").get().val()
+    Length = len(Watchlist)
+    return render_template("WatchList.html" , Watchlist = Watchlist, Length = Length)
+  else:
+    return render_template("Login.html")
 
 
-@app.route('/signout',methods=['GET', 'POST'])
+@app.route('/call_my_function/<movie>')
+def call_my_function(movie):
+    return url_for(MovieRoute(movie))
+
+
+
+@app.route('/static/signout',methods=['GET', 'POST'])
 def signout():
-  if request.method == "POST":
+  if request.method == "GET":
     session["user"] = None
     auth.current_user = None
-    return render_template("Login.html")
+    return render_template("Home.html")
+
 
 if __name__ == '__main__':
     app.run(debug = True)

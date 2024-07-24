@@ -6,16 +6,33 @@
 	<link rel="stylesheet" type="text/css" href="/static/style.css">
 	<title>Home</title>
 </head>
-<body>
-	<h1>Home</h1>
+<body style="text-align: center; background-color: black;">
 
-	<a href="login">Log in</a>
+	<div class="topnav">
+	  <a class="active" href="home">Home</a>
+	  <a href="/static/library">Movies</a>
+  	  <a href="/static/watchlist">Watchlist</a>
+	  {%if session["user"] == None%}
+	  	<a href="/static/login" id="login">Log In</a>
+	  	<a href="/static/signup" id="signup">Sign Up</a>
+	  {%else%}
+		<a href="/static/signout" id="signout">Log Out</a>
+  	  {%endif%}
+	</div>
 
-	<br>
+	<div style="color: white;">
+		<h1>MovieLand</h1>
 
-	<a href="signup">Sign up</a>
+		<h3>Welcome to MovieLand</h3>
 
-	{{New_Watchlist}}
+		<p>Here you can find information on the best movies to watch and add them to your watching list</p>
+
+		{%if session["user"] == None%}
+			<a href="login">Get Started</a>
+		{%endif%}
+	</div>
+
+
 
 </body>
 </html>

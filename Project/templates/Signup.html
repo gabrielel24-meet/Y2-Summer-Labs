@@ -6,9 +6,17 @@
 	<link rel="stylesheet" type="text/css" href="/static/style.css">
 	<title></title>
 </head>
-<body>
+<body style="text-align: center; background-color: black;">
 
-	<h1>Sign Up</h1>
+	<div class="topnav">
+	  	<a href="/">Home</a>
+		<a href="/static/login"  id="login">Log In</a>
+		<a href="/static/signup" class="active" id="signup">Sign Up</a>
+		<a href="/static/library">Movies</a>
+		<a href="/static/watchlist">Watchlist</a>
+	</div>
+
+	<h1 style="color: white";>Sign Up</h1>
 
 	<form action="signup" method="POST">
 		
@@ -31,7 +39,7 @@
 		<button type="submit">Submit</button>
 
 
-		<p>Already have an account? <a href="login">Log in</a></p>
+		<p style="color: white;">Already have an account? <a href="login">Log in</a></p>
 
 	</form>
 

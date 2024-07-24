@@ -6,18 +6,27 @@
 	<link rel="stylesheet" type="text/css" href="/static/style.css">
 	<title>Library</title>
 </head>
-<body>
+<body style="background-color: black;">
+
+	<div class="topnav">
+	  <a href="/">Home</a>
+	  <a href="/static/library" class="active">Movies</a>
+  	  <a href="/static/watchlist">Watchlist</a>
+	  {%if session["user"] == None%}
+	  	<a href="/login" id="login">Log In</a>
+	  	<a href="/signup" id="signup">Sign Up</a>
+	  {%else%}
+		<a href="/static/signout" id="signout">Log Out</a>
+  	  {%endif%}
+	</div>
 	
-	<h1>Movie library</h1>
+	<h1 style="color: white; text-align: center;">Movie library</h1>
 
 	<br>
 
-	<form action="signout" method="POST">
-		<button >Sign out</button>
-	</form>
+	<a href="/movie/ratatouille"><img src="https://resizing.flixster.com/ySiX7RlyKRuuxCcAI7SgdkMAZ0U=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzLzc4ZmJhZjZiLTEzNWMtNDIwOC1hYzU1LTgwZjE3ZjQzNTdiNy5qcGc=" width="20%
+	" height="20%"></a>
 
-	<hr>
-
-	<a href = "ratatouille"><img src="https://resizing.flixster.com/ySiX7RlyKRuuxCcAI7SgdkMAZ0U=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzLzc4ZmJhZjZiLTEzNWMtNDIwOC1hYzU1LTgwZjE3ZjQzNTdiNy5qcGc="></a>
+	<a href = "/movie/GOTG2"><img src="https://m.media-amazon.com/images/M/MV5BNjM0NTc0NzItM2FlYS00YzEwLWE0YmUtNTA2ZWIzODc2OTgxXkEyXkFqcGdeQXVyNTgwNzIyNzg@._V1_FMjpg_UX1000_.jpg" width="20%" height="20%"></a>
 </body>
 </html>
