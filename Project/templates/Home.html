@@ -6,10 +6,10 @@
 	<link rel="stylesheet" type="text/css" href="/static/style.css">
 	<title>Home</title>
 </head>
-<body style="text-align: center; background-color: black;">
+<body class="page">
 
 	<div class="topnav">
-	  <a class="active" href="home">Home</a>
+	  <a class="active" href="/">Home</a>
 	  <a href="/static/library">Movies</a>
   	  <a href="/static/watchlist">Watchlist</a>
 	  {%if session["user"] == None%}
@@ -21,14 +21,14 @@
 	</div>
 
 	<div style="color: white;">
-		<h1>MovieLand</h1>
+		<h1 id="HomeTitle">MovieLand</h1>
 
-		<h3>Welcome to MovieLand</h3>
+		<h1 id="Welcome">Welcome to MovieLand</h1>
 
 		<p>Here you can find information on the best movies to watch and add them to your watching list</p>
 
 		{%if session["user"] == None%}
-			<a href="login">Get Started</a>
+			<a href="/static/login">Get Started</a>
 		{%endif%}
 	</div>
 

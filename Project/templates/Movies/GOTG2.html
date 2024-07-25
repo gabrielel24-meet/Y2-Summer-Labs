@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="/static/style.css">
 	<title>Guardians of the galaxy 2</title>
 </head>
-<body style="text-align: center; background-color: black;">
+<body class="page">
 
 	<div class="topnav">
 	  <a href="/">Home</a>
@@ -22,15 +22,15 @@
 
 	<h1 style="color: white;">Guardians of the galaxy 2</h1>
 
-	<iframe width="1280" height="720" src="https://www.youtube.com/embed/wUn05hdkhjM" title="Guardians of the Galaxy Vol. 2 - Trailer 3 (Official)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	<iframe width="1080" height="520" src="https://www.youtube.com/embed/wUn05hdkhjM" title="Guardians of the Galaxy Vol. 2 - Trailer 3 (Official)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 	{%if Excist == False%}
 	<form method="POST" action="/movie/GOTG2">
-		<button type="submit">Add to Watchlist</button>
+		<button type="submit" class="button-24 fav">Add to Watchlist</button>
 	</form>
 	{%else%}
 	<form method="POST" action="/movie/GOTG2">
-		<button type="submit">Remove from Watchlist</button>
+		<button type="submit" class="button-24 fav">Remove from Watchlist</button>
 	</form>
 	{%endif%}
 

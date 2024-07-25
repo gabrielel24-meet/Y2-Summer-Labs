@@ -47,7 +47,7 @@ def movie(movie):
       New_Watchlist = db.child('users').child(uid).child("Watchlist").get().val()
       New_Watchlist.remove(movie)
       db.child('users').child(uid).update({"Watchlist":New_Watchlist})
-    return render_template("Home.html")
+    return render_template("Library.html")
 
 # CODE
 
